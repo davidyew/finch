@@ -10,7 +10,6 @@ const containerName = process.env.CONTAINER_KEY;
 const sharedKeyCredential = new StorageSharedKeyCredential(storageAccountName, storageAccountKey);
 
 // Azure Storage client
-// connection string: DefaultEndpointsProtocol=https;AccountName=plsextfilesblob;AccountKey=e5lzrGIKIZyV2EGxmA6NSlnBxJbaO5iVHaFBtiHfMkTehdXCBBjnZhnN353ul3t7KlO/JmSw/DYH+AStTCVCFQ==;EndpointSuffix=core.windows.net
 const blobServiceClient = new BlobServiceClient(`https://${storageAccountName}.blob.core.windows.net`, sharedKeyCredential);
 const containerClient = blobServiceClient.getContainerClient(containerName);
 
