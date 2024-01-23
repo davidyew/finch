@@ -1,29 +1,40 @@
 {
-  "compilerOptions": {
-    "declaration": true,
-    "module": "commonjs",
-    "downlevelIteration": true,
-    "moduleResolution": "node",
-    "noImplicitReturns": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "noUnusedLocals": true,
-    "strictNullChecks": true,
-    "resolveJsonModule": true,
-    "noImplicitThis": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "outDir": "dist",
-    "lib": [
-      "dom",
-      "es7"
+    "extends": "@tsconfig/node20/tsconfig.json",
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "target": "ESNext",
+        "types": [
+            "node"
+        ],
+        "skipLibCheck": true,
+        "noEmit": true,
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        // TODO: fix this
+        "baseUrl": ".",
+        // https://www.typescriptlang.org/tsconfig#paths
+        // TODO: fix this
+        "paths": {
+        },
+        // https://www.typescriptlang.org/tsconfig#removeComments
+        "removeComments": true
+    },
+    "include": [
+        "./src/**/*.ts"
     ],
-    "target": "es2017"
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "exclude": [
+        "node_modules"
+    ],
+    "ts-node": {
+        "swc": true
+    }
 }

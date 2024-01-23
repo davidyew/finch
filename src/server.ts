@@ -1,13 +1,19 @@
-import * as express from 'express'
+import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify'
+import { Server, IncomingMessage, ServerResponse } from 'http'
+
 import {createServer, Server, IncomingMessage} from 'http'
 import {createProxyServer} from 'http-proxy'
-import BrowserPool from './BrowserPool'
 import {parse} from 'url'
 import {Socket} from 'net'
+
+import BrowserPool from './BrowserPool'
 import {maxPoolSize, minPoolSize, healthCheckEndpoint, connectionTimeout} from './config'
 
 export default class FinchServer {
-  private app = express()
+  private app: FastifyInstance = Fastify({
+    logger: true
+  })
+
   private browserPool = new BrowserPool({maxPoolSize, minPoolSize, timeout: connectionTimeout / 2})
   private proxy = createProxyServer()
   private server: Server
@@ -18,6 +24,7 @@ export default class FinchServer {
         res.end('Hey! I am Finch and I am healthy!')
       })
     }
+
     this.server = createServer(async (req, res) => this.app(req, res))
       .on('upgrade', (req: IncomingMessage, socket: Socket, head: any) => {
         this.upgrade(req, socket, head).catch((err) => {
@@ -93,3 +100,4 @@ export default class FinchServer {
     )
   }
 }
+
